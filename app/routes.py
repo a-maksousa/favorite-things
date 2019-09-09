@@ -243,6 +243,31 @@ def UpdateMetaData():
         db.session.rollback()
         return jsonify(Response.failure())
 
+@app.route('/DeleteMetaData', methods=['POST'])
+def DeleteMetaData():
+    try:
+        intFavID = request.form['intFavID']
+        intMetaDataID = request.form['intMetaDataID']
+
+        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+        if objFavorite:
+            objMetaData = Meta_Data.query.filter_by(id = intMetaDataID).first()
+            if objMetaData:
+                db.session.delete(objMetaData)
+                objFavorite.modified_date = datetime.now()
+                db.session.commit()
+                response = Response.success()
+            else:
+                response = Response.failure("This Meta Data is not exists")
+        else:
+            response = Response.failure("This Favorite is not exists")
+
+        return jsonify(response)
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(Response.failure())
+
 # Helper Methods
 def rankReorder(intCatID, intRank):
     lstSameRankItems = Favorite.query.filter(Favorite.ranking >= intRank, Favorite.category_id == intCatID).all()
