@@ -11,6 +11,10 @@ from datetime import datetime
 @app.route('/GetAllCategories', methods=['GET'])
 def GetAllCategories():
     try:
+        objLogs = Audit_Log(description = "Getting all Categories",log_date = datetime.now())
+        db.session.add(objLogs)
+        db.session.commit()
+
         lstCategories = Categories_Lookup.query.all()
         response = []
         for objCategory in lstCategories:
@@ -32,6 +36,11 @@ def AddCategory():
             db.session.add(category)
             db.session.commit()
             response = success(category.as_dict())
+
+            objLogs = Audit_Log(description = "Add New Category (%s)" % strCategoryTitle ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Category is already exists")
 
@@ -54,6 +63,11 @@ def DeleteCategory():
             db.session.delete(objCategory)
             db.session.commit()
             response = success()
+
+            objLogs = Audit_Log(description = "Delete Category (%s)" % objCategory.title ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Category is not exists")
 
@@ -77,6 +91,11 @@ def GetFavByCatID():
             for objFavorite in lstFavorites:
                 response.append(objFavorite.as_dict())
             response =  success(response)
+
+            objLogs = Audit_Log(description = "Getting all Favorites for (%s) Category" % objCategory.title ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Category is not exists")
 
@@ -106,6 +125,11 @@ def AddFavByCatID():
                 db.session.add(fav)
                 db.session.commit()
                 response = success(fav.as_dict())
+
+                objLogs = Audit_Log(description = "Add New Favorite (%s) for (%s) Category" % (strFavoriteTitle,objCategory.title) ,log_date = datetime.now())
+                db.session.add(objLogs)
+                db.session.commit()
+
             else:
                 response = failure("Favorite Name Must be Unique")
         else:
@@ -131,6 +155,11 @@ def DeleteFavorite():
             db.session.delete(objFavorite)
             db.session.commit()
             response = success()
+
+            objLogs = Audit_Log(description = "Delete Favorite (%s)" % objFavorite.title ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Favorite is not Exists")
 
@@ -159,6 +188,11 @@ def UpdateFavorite():
             objFavorite.modified_date = datetime.now()
             db.session.commit()
             response = success(objFavorite.as_dict())
+
+            objLogs = Audit_Log(description = "Update Favorite (%s)" % strTitle ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Favorite is not Exists")
 
@@ -174,12 +208,18 @@ def UpdateFavorite():
 def GetMetaDataByFavID():
     try:
         intFavID = request.form['intFavID']
-        if Favorite.query.filter_by(id = intFavID).first():
+        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+        if objFavorite:
             lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavID)
             response = []
             for objMetaData in lstMetaData:
                 response.append(objMetaData.as_dict())
             response = success(response)
+
+            objLogs = Audit_Log(description = "Getting all Meta Data from (%s) Favorite" % objFavorite.title ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
+
         else:
             response = failure("This Favorite is not exists")
 
@@ -202,6 +242,10 @@ def AddMetaData():
             objFavorite.modified_date = datetime.now()
             db.session.commit()
             response = success(objMetaData.as_dict())
+
+            objLogs = Audit_Log(description = "Add New MetaData (%s) for (%s) Favorite" % (key,objFavorite.title) ,log_date = datetime.now())
+            db.session.add(objLogs)
+            db.session.commit()
 
         else:
             response = failure("This Favorite is not exists")
@@ -230,6 +274,10 @@ def UpdateMetaData():
                 db.session.commit()
                 response = success(objMetaData.as_dict())
 
+                objLogs = Audit_Log(description = "Update MetaData (%s) from (%s) Favorite" % (key,objFavorite.title) ,log_date = datetime.now())
+                db.session.add(objLogs)
+                db.session.commit()
+
             else:
                 response = failure("This Meta Data is not exists")
 
@@ -256,6 +304,11 @@ def DeleteMetaData():
                 objFavorite.modified_date = datetime.now()
                 db.session.commit()
                 response = success()
+
+                objLogs = Audit_Log(description = "Delete MetaData (%s) from (%s) Favorite" % (objMetaData.key,objFavorite.title) ,log_date = datetime.now())
+                db.session.add(objLogs)
+                db.session.commit()
+
             else:
                 response = failure("This Meta Data is not exists")
         else:
