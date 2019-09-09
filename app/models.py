@@ -27,19 +27,7 @@ class Meta_Data(db.Model,JsonModel):
     value=db.Column(db.String(30), index=True, nullable=False)
     favorite_id=db.Column(db.Integer, db.ForeignKey('favorite.id'),nullable=False)
 
-class Item_Type_Lookup(db.Model,JsonModel):
-    id = db.Column(db.Integer, primary_key=True)
-    type_name = db.Column(db.String(30), index=True, unique=True, nullable=False)
-    audit_log = db.relationship('Audit_Log', backref='ItemType', lazy='dynamic')
-
-class Operation_Type_Lookup(db.Model,JsonModel):
-    id = db.Column(db.Integer, primary_key=True)
-    type_name = db.Column(db.String(30), index=True, unique=True, nullable=False)
-    audit_log = db.relationship('Audit_Log', backref='OperationType', lazy='dynamic')
-
 class Audit_Log(db.Model,JsonModel):
     id = db.Column(db.Integer, primary_key=True)
     log_date = db.Column(db.DateTime,nullable=False)
-    item_name = db.Column(db.Text,nullable=False)
-    item_type_id = db.Column(db.Integer, db.ForeignKey('item__type__lookup.id'),nullable=False)
-    operation_type_id = db.Column(db.Integer, db.ForeignKey('operation__type__lookup.id'),nullable=False)
+    description = db.Column(db.Text,nullable=False)
