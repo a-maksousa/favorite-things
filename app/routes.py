@@ -141,6 +141,34 @@ def DeleteFavorite():
        db.session.rollback()
        return jsonify(Response.failure())
 
+@app.route('/UpdateFavorite', methods=['POST'])
+def UpdateFavorite():
+    try:
+        intFavID = request.form['intFavID']
+        strTitle = request.form['strTitle']
+        strDescription = request.form['strDescription']
+        intRank = request.form['intRank']
+        
+        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+        if not objFavorite is None:
+            if strTitle != objFavorite.title and Favorite.query.filter_by(title = strTitle).first():
+                response = Response.failure("Favorite Name Must be Unique")
+
+            objFavorite.title = strTitle
+            objFavorite.description = strDescription
+            objFavorite.ranking = intRank
+            objFavorite.modified_date = datetime.now()
+            db.session.commit()
+            response = Response.success(objFavorite.as_dict())
+        else:
+            response = Response.failure("This Favorite is not Exists")
+
+        return jsonify(response)
+
+    except Exception as e:
+       db.session.rollback()
+       return jsonify(Response.failure())
+
 # Helper Methods
 def rankReorder(intCatID, intRank):
     lstSameRankItems = Favorite.query.filter(Favorite.ranking >= intRank, Favorite.category_id == intCatID).all()
