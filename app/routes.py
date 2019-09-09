@@ -169,6 +169,26 @@ def UpdateFavorite():
        db.session.rollback()
        return jsonify(Response.failure())
 
+# Favorites Meta Data
+
+@app.route('/GetMetaDataByFavID', methods=['GET'])
+def GetMetaDataByFavID():
+    try:
+        intFavID = request.form['intFavID']
+        if Favorite.query.filter_by(id = intFavID).first():
+            lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavID)
+            response = []
+            for objMetaData in lstMetaData:
+                response.append(objMetaData)
+        else:
+            response = Response.failure("This Favorite is not exists")
+
+        return jsonify(response)
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(Response.failure())
+
 # Helper Methods
 def rankReorder(intCatID, intRank):
     lstSameRankItems = Favorite.query.filter(Favorite.ranking >= intRank, Favorite.category_id == intCatID).all()
