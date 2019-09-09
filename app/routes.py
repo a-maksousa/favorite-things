@@ -179,7 +179,31 @@ def GetMetaDataByFavID():
             lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavID)
             response = []
             for objMetaData in lstMetaData:
-                response.append(objMetaData)
+                response.append(objMetaData.as_dict())
+            response = Response.success(response)
+        else:
+            response = Response.failure("This Favorite is not exists")
+
+        return jsonify(response)
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(Response.failure())
+
+@app.route('/AddMetaData', methods=['POST'])
+def AddMetaData():
+    try:
+        intFavID = request.form['intFavID']
+        key = request.form['key']
+        value = request.form['value']
+        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+        if objFavorite:
+            objMetaData = Meta_Data(key = key,value = value,FavoriteItem = objFavorite)
+            db.session.add(objMetaData)
+            objFavorite.modified_date = datetime.now()
+            db.session.commit()
+            response = Response.success(objMetaData.as_dict())
+
         else:
             response = Response.failure("This Favorite is not exists")
 
