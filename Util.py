@@ -1,10 +1,8 @@
-from flask import jsonify
-
 class Response():
-    def success(data):
-        data = {'data':data,'code':1}
-        return jsonify(data)
+    def success(data={}):
+        data = {'code':1,'data':data}
+        return data
 
-    def failure(msg):
+    def failure(msg="Unknown Error"):
         data = {'code':0,'msg':msg}
-        return jsonify(data)
+        return data
