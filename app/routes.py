@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, jsonify
-from Util import Response
-from app.models import Categories_Lookup, Favorite, Meta_Data
+from Util import success, failure
+from app.models import Categories_Lookup, Favorite, Meta_Data, Audit_Log
 from datetime import datetime
 
 # Web API
@@ -15,11 +15,11 @@ def GetAllCategories():
         response = []
         for objCategory in lstCategories:
             response.append(objCategory.as_dict())
-        return jsonify(Response.success(response))
+        return jsonify(success(response))
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/AddCategory',methods=['POST'])
 def AddCategory():
@@ -31,15 +31,15 @@ def AddCategory():
             category = Categories_Lookup(title=strCategoryTitle,cteated_date = datetime.now(),modified_date=datetime.now())
             db.session.add(category)
             db.session.commit()
-            response = Response.success(category.as_dict())
+            response = success(category.as_dict())
         else:
-            response = Response.failure("This Category is already exists")
+            response = failure("This Category is already exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/DeleteCategory',methods=['POST'])
 def DeleteCategory():
@@ -53,16 +53,15 @@ def DeleteCategory():
                 Favorite.query.filter_by(category_id=objCategory.id).delete()
             db.session.delete(objCategory)
             db.session.commit()
-            response = Response.success()
+            response = success()
         else:
-            response = Response.failure("This Category is not exists")
+            response = failure("This Category is not exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
-
+        return jsonify(failure())
 
 # Favorites
 
@@ -77,15 +76,15 @@ def GetFavByCatID():
             response = []
             for objFavorite in lstFavorites:
                 response.append(objFavorite.as_dict())
-            response =  Response.success(response)
+            response =  success(response)
         else:
-            response = Response.failure("This Category is not exists")
+            response = failure("This Category is not exists")
 
         return jsonify(response)
         
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/AddFavByCatID', methods=['POST'])
 def AddFavByCatID():
@@ -106,17 +105,17 @@ def AddFavByCatID():
                 fav = Favorite(title = strFavoriteTitle,description = strDescription,ranking = intRanking,cteated_date = datetime.now(),modified_date=datetime.now(),Category=objCategory)
                 db.session.add(fav)
                 db.session.commit()
-                response = Response.success(fav.as_dict())
+                response = success(fav.as_dict())
             else:
-                response = Response.failure("Favorite Name Must be Unique")
+                response = failure("Favorite Name Must be Unique")
         else:
-            response = Response.failure("This Category is not exists")
+            response = failure("This Category is not exists")
 
         return jsonify(response)
 
    except Exception as e:
        db.session.rollback()
-       return jsonify(Response.failure())
+       return jsonify(failure())
 
 @app.route('/DeleteFavorite', methods=['POST'])
 def DeleteFavorite():
@@ -131,15 +130,15 @@ def DeleteFavorite():
                 Meta_Data.query.filter_by(favorite_id = intFavID).delete()
             db.session.delete(objFavorite)
             db.session.commit()
-            response = Response.success()
+            response = success()
         else:
-            response = Response.failure("This Favorite is not Exists")
+            response = failure("This Favorite is not Exists")
 
         return jsonify(response)
            
    except Exception as e:
        db.session.rollback()
-       return jsonify(Response.failure())
+       return jsonify(failure())
 
 @app.route('/UpdateFavorite', methods=['POST'])
 def UpdateFavorite():
@@ -152,22 +151,22 @@ def UpdateFavorite():
         objFavorite = Favorite.query.filter_by(id = intFavID).first()
         if not objFavorite is None:
             if strTitle != objFavorite.title and Favorite.query.filter_by(title = strTitle).first():
-                response = Response.failure("Favorite Name Must be Unique")
+                response = failure("Favorite Name Must be Unique")
 
             objFavorite.title = strTitle
             objFavorite.description = strDescription
             objFavorite.ranking = intRank
             objFavorite.modified_date = datetime.now()
             db.session.commit()
-            response = Response.success(objFavorite.as_dict())
+            response = success(objFavorite.as_dict())
         else:
-            response = Response.failure("This Favorite is not Exists")
+            response = failure("This Favorite is not Exists")
 
         return jsonify(response)
 
     except Exception as e:
        db.session.rollback()
-       return jsonify(Response.failure())
+       return jsonify(failure())
 
 # Favorites Meta Data
 
@@ -180,15 +179,15 @@ def GetMetaDataByFavID():
             response = []
             for objMetaData in lstMetaData:
                 response.append(objMetaData.as_dict())
-            response = Response.success(response)
+            response = success(response)
         else:
-            response = Response.failure("This Favorite is not exists")
+            response = failure("This Favorite is not exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/AddMetaData', methods=['POST'])
 def AddMetaData():
@@ -202,16 +201,16 @@ def AddMetaData():
             db.session.add(objMetaData)
             objFavorite.modified_date = datetime.now()
             db.session.commit()
-            response = Response.success(objMetaData.as_dict())
+            response = success(objMetaData.as_dict())
 
         else:
-            response = Response.failure("This Favorite is not exists")
+            response = failure("This Favorite is not exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/UpdateMetaData', methods=['POST'])
 def UpdateMetaData():
@@ -229,19 +228,19 @@ def UpdateMetaData():
                 objMetaData.value = value
                 objFavorite.modified_date = datetime.now()
                 db.session.commit()
-                response = Response.success(objMetaData.as_dict())
+                response = success(objMetaData.as_dict())
 
             else:
-                response = Response.failure("This Meta Data is not exists")
+                response = failure("This Meta Data is not exists")
 
         else:
-            response = Response.failure("This Favorite is not exists")
+            response = failure("This Favorite is not exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 @app.route('/DeleteMetaData', methods=['POST'])
 def DeleteMetaData():
@@ -256,17 +255,17 @@ def DeleteMetaData():
                 db.session.delete(objMetaData)
                 objFavorite.modified_date = datetime.now()
                 db.session.commit()
-                response = Response.success()
+                response = success()
             else:
-                response = Response.failure("This Meta Data is not exists")
+                response = failure("This Meta Data is not exists")
         else:
-            response = Response.failure("This Favorite is not exists")
+            response = failure("This Favorite is not exists")
 
         return jsonify(response)
 
     except Exception as e:
         db.session.rollback()
-        return jsonify(Response.failure())
+        return jsonify(failure())
 
 # Helper Methods
 def rankReorder(intCatID, intRank):
