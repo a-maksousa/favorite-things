@@ -87,3 +87,40 @@ def GetFavByCatID():
         db.session.rollback()
         return jsonify(Response.failure())
 
+@app.route('/AddFavByCatID', methods=['POST'])
+def AddFavByCatID():
+   try:
+        intCatID = request.form['intCatID']
+        strFavoriteTitle = request.form['strFavoriteTitle']
+        strDescription = request.form['strDescription']
+        intRanking = request.form['intRanking']
+        objCategory = Categories_Lookup.query.filter_by(id = intCatID).first()
+
+        if not objCategory is None:
+            objFavorite = Favorite.query.filter_by(title = strFavoriteTitle).first()
+
+            if objFavorite is None:
+                objSameRankItem = Favorite.query.filter_by(category_id = intCatID, ranking = intRanking).first()
+                if objSameRankItem:
+                    rankReorder(intCatID,intRanking)
+                fav = Favorite(title = strFavoriteTitle,description = strDescription,ranking = intRanking,cteated_date = datetime.now(),modified_date=datetime.now(),Category=objCategory)
+                db.session.add(fav)
+                db.session.commit()
+                response = Response.success(fav.as_dict())
+            else:
+                response = Response.failure("Favorite Name Must be Unique")
+        else:
+            response = Response.failure("This Category is not exists")
+
+        return jsonify(response)
+
+   except Exception as e:
+       db.session.rollback()
+       return jsonify(Response.failure())
+
+# Helper Methods
+def rankReorder(intCatID, intRank):
+    lstSameRankItems = Favorite.query.filter(Favorite.ranking >= intRank, Favorite.category_id == intCatID).all()
+    for objSameRankItem in lstSameRankItems:
+        intNewRank = objSameRankItem.ranking + 1
+        objSameRankItem.ranking = intNewRank
