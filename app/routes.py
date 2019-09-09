@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, jsonify
 from Util import Response
-from app.models import Categories_Lookup, Favorite
+from app.models import Categories_Lookup, Favorite, Meta_Data
 from datetime import datetime
 
 # Web API
@@ -114,6 +114,29 @@ def AddFavByCatID():
 
         return jsonify(response)
 
+   except Exception as e:
+       db.session.rollback()
+       return jsonify(Response.failure())
+
+@app.route('/DeleteFavorite', methods=['POST'])
+def DeleteFavorite():
+   try:
+        intFavID = request.form['intFavID']
+        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+
+        if not objFavorite is None:
+
+            lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavID).all()
+            if len(lstMetaData) > 0:
+                Meta_Data.query.filter_by(favorite_id = intFavID).delete()
+            db.session.delete(objFavorite)
+            db.session.commit()
+            response = Response.success()
+        else:
+            response = Response.failure("This Favorite is not Exists")
+
+        return jsonify(response)
+           
    except Exception as e:
        db.session.rollback()
        return jsonify(Response.failure())
