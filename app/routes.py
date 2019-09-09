@@ -267,6 +267,33 @@ def DeleteMetaData():
         db.session.rollback()
         return jsonify(failure())
 
+# Logs
+
+@app.route('/GetLogs', methods=['GET'])
+def GetLogs():
+    try:
+        lstLogs = Audit_Log.query.all()
+        response = []
+        for objLog in lstLogs:
+            response.append(objLog.as_dict())
+
+        return jsonify(success(response))
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(failure())
+
+@app.route('/ClearLogs', methods=['POST'])
+def ClearLogs():
+    try:
+        Audit_Log.query.delete()
+        db.session.commit()
+        return jsonify(success())
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(failure())
+
 # Helper Methods
 def rankReorder(intCatID, intRank):
     lstSameRankItems = Favorite.query.filter(Favorite.ranking >= intRank, Favorite.category_id == intCatID).all()
