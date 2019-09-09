@@ -62,3 +62,28 @@ def DeleteCategory():
     except Exception as e:
         db.session.rollback()
         return jsonify(Response.failure())
+
+
+# Favorites
+
+@app.route('/GetFavByCatID', methods=['GET'])
+def GetFavByCatID():
+    try:
+        intCategoryID = request.form['intCategoryID']
+        objCategory = Categories_Lookup.query.filter_by(id = intCategoryID).first()
+
+        if not objCategory is None:
+            lstFavorites = Favorite.query.filter_by(category_id=objCategory.id)
+            response = []
+            for objFavorite in lstFavorites:
+                response.append(objFavorite.as_dict())
+            response =  Response.success(response)
+        else:
+            response = Response.failure("This Category is not exists")
+
+        return jsonify(response)
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify(Response.failure())
+
