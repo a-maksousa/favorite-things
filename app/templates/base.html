@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/Favorites.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.toast.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jsgrid.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jsgrid-theme.min.css') }}">
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.toast.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/all.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert2@8.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jsgrid.min.js') }}"></script>
+
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Favorite Things</title>
+    {% endif %}
+
+</head>
+
+<body>
+    <nav class=" navbar navbar-default">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="navbar-header col-md-2">
+                    <a class="navbar-brand" href="{{url_for('index')}}">
+                        <img style="width: 110px" src="{{url_for('static',filename='images/Logo.png')}}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% if title != "Home" %}
+    <div class="page_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="page_header_label" href="{{url_for('index')}}">
+                        <h6 class="page_header_item">Home</h6>
+                    </a>
+                    <i style="vertical-align: sub" class="page_header_item fas fa-caret-right"></i>
+                    <h6 class="page_header_item">{{ title }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+    
+    <div class="container-fluid footer">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="https://github.com/a-maksousa" target="_blank">
+                    <img style="float: right;width: 60px" src="{{url_for('static',filename='images/Github.png')}}">
+                </a>
+                <a href="https://www.linkedin.com/in/amaksousa/" target="_blank">
+                    <img style="float: right;width: 60px" src="{{url_for('static',filename='images/linkedin.png')}}">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

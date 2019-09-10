@@ -1,8 +1,24 @@
 from app import app, db
-from flask import request, jsonify
+from flask import request, jsonify, render_template, url_for
 from Util import success, failure
 from app.models import Categories_Lookup, Favorite, Meta_Data, Audit_Log
 from datetime import datetime
+
+# Views
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template("index.html",title="Home")
+
+@app.route('/logs')
+def logs():
+    return render_template("logs.html",title="Audit Logs")
+
+@app.route('/favorites')
+def favorites():
+    lstCategories = GetAllCategories()
+    return render_template("favorites.html",title="Favorite List", lstCategories = lstCategories)
 
 # Web API
 

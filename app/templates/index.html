@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class=container>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="cat_card col-md-3">
+            <a href="{{url_for('logs')}}"><img class="cat_logo"
+                    src="{{url_for('static',filename='images/Audit_Log.png')}}"></a>
+            <h1>Audit Log</h1>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="cat_card col-md-3">
+            <a href="{{url_for('favorites')}}"><img class="cat_logo"
+                    src="{{url_for('static',filename='images/Favorites.png')}}"></a>
+            <h1>Favorite List</h1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock %}
