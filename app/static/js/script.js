@@ -55,6 +55,30 @@ $(document).ready(function () {
         })
     })
 
+    $("#btnClearLogs").click(function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                $.post('/ClearLogs').done(function (response) {
+                    if (response.code == 0) {
+                        ShowError(response.msg)
+                    }
+                    else{
+                        $("#tblLogs").jsGrid("option", "data", []);
+                        ShowMessage("Logs Cleares Successfully")
+                    }
+                })
+            }
+        })
+    })
+
 });
 
 function InitFavGrid(intCatID) {
@@ -102,6 +126,8 @@ function InitFavGrid(intCatID) {
                         intRanking: args.item.ranking
                     }).done(function (response) {
                         if (response.code == 0) {
+                            args.item.deleteConfirmed = true;
+                            $("#favorites_" + intCatID).jsGrid("deleteItem", args.item);
                             ShowError(response.msg)
                         }
                         else {
@@ -204,6 +230,8 @@ function InitMetaDataGrid(intFavID) {
                         value: args.item.value
                     }).done(function (response) {
                         if (response.code == 0) {
+                            args.item.deleteConfirmed = true;
+                            $("#metaDataGrid").jsGrid("deleteItem", args.item);
                             ShowError(response.msg)
                         }
                         else {
@@ -262,6 +290,30 @@ function InitMetaDataGrid(intFavID) {
                         }
                     })
                 }
+            });
+        }
+    })
+}
+
+function InitLogsGrid() {
+    $.get('/GetLogs').done(function (response) {
+        if (response.code == 0) {
+            ShowError(response.msg)
+        }
+        else {
+            $("#tblLogs").jsGrid({
+                width: "100%",
+                inserting: false,
+                editing: false,
+                sorting: true,
+                paging: true,
+                confirmDeleting: false,
+                data: response.data,
+
+                fields: [
+                    { name: "description", title: "Description", type: "text" },
+                    { name: "log_date", title: "Date", type: "text" },
+                ]
             });
         }
     })

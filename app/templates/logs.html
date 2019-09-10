@@ -1,4 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-
+<div class="container">
+        <button type="button" id=btnClearLogs class="fav-btn btn btn-primary">Clear Logs</button>
+    <div class="elementsContainer">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="favTable">
+                    <div id="tblLogs"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        InitLogsGrid()
+    </script>
+</div>
 {% endblock %}

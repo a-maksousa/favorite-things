@@ -131,7 +131,7 @@ def AddFavByCatID():
         objCategory = Categories_Lookup.query.filter_by(id = intCatID).first()
 
         if not objCategory is None:
-            objFavorite = Favorite.query.filter_by(title = strFavoriteTitle).first()
+            objFavorite = Favorite.query.filter(Favorite.category_id == intCatID , Favorite.title == strFavoriteTitle).first()
 
             if objFavorite is None:
                 objSameRankItem = Favorite.query.filter_by(category_id = intCatID, ranking = intRanking).first()

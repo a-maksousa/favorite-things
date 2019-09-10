@@ -13,7 +13,7 @@ class Categories_Lookup(db.Model,JsonModel):
 
 class Favorite(db.Model,JsonModel):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), index=True, unique=True, nullable=False)
+    title = db.Column(db.String(30), index=True, nullable=False)
     description = db.Column(db.Text)
     ranking = db.Column(db.Integer,nullable=False)
     cteated_date = db.Column(db.DateTime,nullable=False)
