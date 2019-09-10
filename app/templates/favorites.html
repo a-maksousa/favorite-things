@@ -1,4 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
+    <button type="button" class="fav-btn btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">New
+        Category</button>
+
+    <div class="elementsContainer">
+        {% for category in lstCategories %}
+        <div class="row">
+            <div class="col-md-12">
+                {% include "_card.html" %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="collapse_favorites_{{category.id}}" class="favTable collapse show">
+                    <div id="favorites_{{category.id}}"></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% for category in lstCategories %}
+    <script>
+        InitFavGrid("{{category.id}}")
+    </script>
+    {% endfor %}
+
+
+</div>
+
+{% include "_favoritesModals.html" %}
 
 {% endblock %}

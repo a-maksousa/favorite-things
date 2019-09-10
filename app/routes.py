@@ -17,8 +17,8 @@ def logs():
 
 @app.route('/favorites')
 def favorites():
-    lstCategories = GetAllCategories()
-    return render_template("favorites.html",title="Favorite List", lstCategories = lstCategories)
+    objResponse = GetAllCategories()
+    return render_template("favorites.html",title="Favorite List", lstCategories = objResponse.json["data"])
 
 # Web API
 
@@ -69,7 +69,7 @@ def AddCategory():
 @app.route('/DeleteCategory',methods=['POST'])
 def DeleteCategory():
     try:
-        intCatID = request.form['intCategoryID']
+        intCatID = request.form['id']
         objCategory = Categories_Lookup.query.filter_by(id = intCatID).first()
         
         if not objCategory is None:
@@ -98,7 +98,7 @@ def DeleteCategory():
 @app.route('/GetFavByCatID', methods=['GET'])
 def GetFavByCatID():
     try:
-        intCategoryID = request.form['intCategoryID']
+        intCategoryID = request.args['intCategoryID']
         objCategory = Categories_Lookup.query.filter_by(id = intCategoryID).first()
 
         if not objCategory is None:
@@ -223,10 +223,10 @@ def UpdateFavorite():
 @app.route('/GetMetaDataByFavID', methods=['GET'])
 def GetMetaDataByFavID():
     try:
-        intFavID = request.form['intFavID']
-        objFavorite = Favorite.query.filter_by(id = intFavID).first()
+        intFavoriteID = request.args['intFavoriteID']
+        objFavorite = Favorite.query.filter_by(id = intFavoriteID).first()
         if objFavorite:
-            lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavID)
+            lstMetaData = Meta_Data.query.filter_by(favorite_id = intFavoriteID)
             response = []
             for objMetaData in lstMetaData:
                 response.append(objMetaData.as_dict())

@@ -5,16 +5,16 @@
     border-radius: 4px;
     border: 1px solid #e7e7e7;
     margin-bottom: 20px;
-  }
+}
 
 .page_header_label{
     text-decoration: none !important; 
     color: rgb(1, 142, 167) !important;
-  }
+}
 
 .page_header_item{
     display: inline-block;
- }
+}
 
 .footer {
     position: fixed;
@@ -24,7 +24,7 @@
     background-color: #f8f8f8;
     border-radius: 4px;
     border: 1px solid #e7e7e7;
- }
+}
 
 /* Home Page */
 
@@ -50,4 +50,76 @@
     padding: 10px;
     border-radius: 15px;
     cursor: pointer;
+}
+
+/* Favorites Page */
+
+.elementsContainer{
+    max-height: 65%;
+    overflow: auto;
+    padding: 25px;
+    box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+}
+
+.favTable{
+    margin: 25px;
+}
+
+.card{
+    box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    transition: 0.4s;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.card_title{
+    border-right: 1px solid #e7e7e7;
+    text-transform: uppercase;
+    text-align: center;
+    color: #018ea7;
+    font-size: 25px;
+}
+
+.card-controls{
+    margin: 5px 10px 5px 10px;
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color: #018ea7 !important;
+}
+
+.modal-title{
+    display: inline;
+}
+
+.fav-btn{
+    background-color: #018ea7 !important;
+    border-color: #01798e !important;
+    transition: 0.4s;
+    outline: none !important;
+}
+
+.fav-btn:hover{
+    background-color: #01798e !important;
+    border-color: #01798e !important;
+}
+
+/* jsGrid */
+
+.jsgrid-grid-header, .jsgrid-grid-body{
+    overflow: hidden !important;
+} 
+
+.jsgrid-button{
+    outline: none !important;
+}
+
+.meta_Data_icon{
+    font-size: 40px;
+    color: #018ea7 !important;
 }
