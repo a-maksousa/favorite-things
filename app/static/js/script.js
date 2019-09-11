@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+    $(".preloader").hide();
+
+    $(document).ajaxStart(function () {
+        $(".preloader").show();
+    });
+
+    $(document).ajaxStop(function () {
+        $(".preloader").hide();
+    });
+
     $(document).tooltip();
 
     window.onload = function () {
@@ -70,9 +80,9 @@ $(document).ready(function () {
                     if (response.code == 0) {
                         ShowError(response.msg)
                     }
-                    else{
+                    else {
                         $("#tblLogs").jsGrid("option", "data", []);
-                        ShowMessage("Logs Cleares Successfully")
+                        ShowMessage("Logs Cleared Successfully")
                     }
                 })
             }
@@ -341,7 +351,7 @@ function ShowError(msg) {
 
 function submitForm() {
     var strTitle = $("#strCategoryTitle").val();
-    $.post('/AddCategory', {
+    $.post('AddCategory', {
         strCategoryTitle: strTitle
     }).done(function (response) {
         if (response.code == 0) {
