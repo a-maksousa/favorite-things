@@ -1,5 +1,6 @@
 body{
     background-image: url("../images/site-background.jpg");
+    background-attachment: fixed;
 }
 
 /* Base Layout */
@@ -51,8 +52,7 @@ body{
 /* Favorites Page */
 
 .elementsContainer{
-    max-height: 65%;
-    overflow: auto;
+    margin-bottom: 10%;
     padding: 25px;
     box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
     margin-top: 15px;
