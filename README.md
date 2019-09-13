@@ -56,6 +56,13 @@ The favorite-things-app is an application that allows the user to track their fa
         ```
         flask db upgrade
         ```
+
+##  Running tests
+-   On command line run:
+    ```
+    python -m unittest
+    ```
+
 ##  Deployment to AWS Lambda using Zappa
 -   Change ROUTES_PREFIX to "/dev" for Lambda routes
 
