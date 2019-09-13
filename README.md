@@ -5,7 +5,7 @@ The favorite-things-app is an application that allows the user to track their fa
 
 ## Entity Eelationship Diagram
 
-![alt](https://https://github.com/a-maksousa/favorite-things/blob/master/ERM.JPG)
+![alt](https://raw.githubusercontent.com/a-maksousa/favorite-things/master/ERM.JPG)
 
 ### Setting Up For Local Development
 
