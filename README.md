@@ -36,7 +36,7 @@ The favorite-things-app is an application that allows the user to track their fa
     ```
     source favorites/venv/venv
     ```
-    
+
 -   Create new Database Instance (favoritesdb)
 
 -   Apply migrations:
@@ -56,7 +56,7 @@ The favorite-things-app is an application that allows the user to track their fa
         ```
         flask db upgrade
         ```
-## Local Deployment to AWS Lambda using Zappa
+##  Deployment to AWS Lambda using Zappa
 -   Change ROUTES_PREFIX to "/dev" for Lambda routes
 
 -   Change Connection String for mysql database in config.py to Production
