@@ -1,0 +1,59 @@
+{
+    "presonalInfo": {
+        "name": "Ahmad Maksousa",
+        "email": "ah_maksousa@hotmail.com",
+        "countryOfResidence": "jordan",
+        "city": "Amman",
+        "phone": "+962 7 9735 7839"
+    },
+    "education": {
+        "university": "Yarmouk University",
+        "location": "Amman, Jordan",
+        "field": "Conputer Engineering"
+    },
+    "experiance": {
+        "compaies": [
+            {
+                "name": "Telelogx",
+                "location": "Amman, Jordan",
+                "role": "Software Developer Trainee",
+                "period": "six months"
+            },
+            {
+                "name": "Leed Technologies",
+                "location": "Amman, Jordan",
+                "role": "Software Developer (Image Processing) Trainee",
+                "period": "one months"
+            },
+            {
+                "name": "optimiza",
+                "location": "Amman, Jordan",
+                "role": "BI & Software Developer",
+                "period": "two years"
+            }
+        ]
+    },
+    "skills": {
+        "technologies": [
+            "java",
+            "C#",
+            "Python",
+            "ASP.NET",
+            "Java Script",
+            "Node.js",
+            "ReactJS",
+            "Flask",
+            "Tableau",
+            "PowerBI",
+            "HTML",
+            "CSS"
+        ]
+    },
+    "cerificates": [
+        {
+            "name":"Tableau Desktop Qualified Associate",
+            "company": "Tableay",
+            "field":"Data Analysis and Business Intelligence"
+        }
+    ]
+}
