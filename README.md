@@ -13,7 +13,7 @@ The favorite-things-app is an application that allows the user to track their fa
 
     ```
     python --version
-    >> Python 3.7.0
+    >> Python 3.6.5
     ```
 
 -   Install pipenv:
@@ -25,7 +25,6 @@ The favorite-things-app is an application that allows the user to track their fa
 -   Check pipenv is installed:
     ```
     pipenv --version
-    >> pipenv, version 2018.10.13
     ```
 -   Install dependencies from requirements.txt file:
 
@@ -35,7 +34,7 @@ The favorite-things-app is an application that allows the user to track their fa
 -   Activate a virtual environment:
 
     ```
-    pipenv shell
+    source favorites/venv/venv
     ```
 
 -   Apply migrations:
@@ -56,6 +55,9 @@ The favorite-things-app is an application that allows the user to track their fa
         flask db upgrade
         ```
 ## Local Deployment to AWS Lambda using Zappa
+-   Change ROUTES_PREFIX to "/dev" for Lambda routes
+
+-   Change Connection String for mysql database in config.py to Production
 
 -   Install zappa inside virtual environment:
 
