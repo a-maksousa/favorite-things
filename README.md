@@ -36,6 +36,8 @@ The favorite-things-app is an application that allows the user to track their fa
     ```
     source favorites/venv/venv
     ```
+    
+-   Create new Database Instance (favoritesdb)
 
 -   Apply migrations:
 
