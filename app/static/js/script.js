@@ -1,3 +1,5 @@
+var ROUTES_PREFIX = ""
+
 $(document).ready(function () {
 
     $(".preloader").hide();
@@ -50,7 +52,7 @@ $(document).ready(function () {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                $.post('/DeleteCategory', {
+                $.post(ROUTES_PREFIX + '/DeleteCategory', {
                     id: intCatID
                 }).done(function (response) {
                     if (response.code == 0) {
@@ -76,7 +78,7 @@ $(document).ready(function () {
             confirmButtonText: 'Yes'
         }).then((result) => {
             if (result.value) {
-                $.post('/ClearLogs').done(function (response) {
+                $.post(ROUTES_PREFIX + '/ClearLogs').done(function (response) {
                     if (response.code == 0) {
                         ShowError(response.msg)
                     }
@@ -92,7 +94,7 @@ $(document).ready(function () {
 });
 
 function InitFavGrid(intCatID) {
-    $.get('/GetFavByCatID', {
+    $.get(ROUTES_PREFIX + '/GetFavByCatID', {
         intCategoryID: intCatID
     }).done(function (response) {
         if (response.code == 0) {
@@ -129,7 +131,7 @@ function InitFavGrid(intCatID) {
                     { type: "control" }
                 ],
                 onItemInserted: function (args) {
-                    $.post('/AddFavByCatID', {
+                    $.post(ROUTES_PREFIX + '/AddFavByCatID', {
                         intCatID: intCatID,
                         strFavoriteTitle: args.item.title,
                         strDescription: args.item.description,
@@ -141,7 +143,7 @@ function InitFavGrid(intCatID) {
                             ShowError(response.msg)
                         }
                         else {
-                            $.get('/GetFavByCatID', {
+                            $.get(ROUTES_PREFIX + '/GetFavByCatID', {
                                 intCategoryID: intCatID
                             }).done(function (response) {
                                 $("#favorites_" + intCatID).jsGrid("option", "data", response.data)
@@ -165,7 +167,7 @@ function InitFavGrid(intCatID) {
                         }).then((result) => {
                             if (result.value) {
                                 args.item.deleteConfirmed = true;
-                                $.post('/DeleteFavorite', {
+                                $.post(ROUTES_PREFIX + '/DeleteFavorite', {
                                     intFavID: args.item.id
                                 }).done(function (response) {
                                     if (response.code == 0) {
@@ -181,7 +183,7 @@ function InitFavGrid(intCatID) {
                     }
                 },
                 onItemUpdated: function (args) {
-                    $.post('/UpdateFavorite', {
+                    $.post(ROUTES_PREFIX + '/UpdateFavorite', {
                         intFavID: args.item.id,
                         strTitle: args.item.title,
                         strDescription: args.item.description,
@@ -191,7 +193,7 @@ function InitFavGrid(intCatID) {
                             ShowError(response.msg)
                         }
                         else {
-                            $.get('/GetFavByCatID', {
+                            $.get(ROUTES_PREFIX + '/GetFavByCatID', {
                                 intCategoryID: intCatID
                             }).done(function (response) {
                                 $("#favorites_" + intCatID).jsGrid("option", "data", response.data)
@@ -207,7 +209,7 @@ function InitFavGrid(intCatID) {
 }
 
 function InitMetaDataGrid(intFavID) {
-    $.get('/GetMetaDataByFavID', {
+    $.get(ROUTES_PREFIX + '/GetMetaDataByFavID', {
         intFavoriteID: intFavID
     }).done(function (response) {
         if (response.code == 0) {
@@ -234,7 +236,7 @@ function InitMetaDataGrid(intFavID) {
                     { type: "control" }
                 ],
                 onItemInserted: function (args) {
-                    $.post('/AddMetaData', {
+                    $.post(ROUTES_PREFIX + '/AddMetaData', {
                         intFavID: intFavID,
                         key: args.item.key,
                         value: args.item.value
@@ -245,7 +247,7 @@ function InitMetaDataGrid(intFavID) {
                             ShowError(response.msg)
                         }
                         else {
-                            $.get('/GetMetaDataByFavID', {
+                            $.get(ROUTES_PREFIX + '/GetMetaDataByFavID', {
                                 intFavoriteID: intFavID
                             }).done(function (response) {
                                 $("#metaDataGrid").jsGrid("option", "data", response.data)
@@ -269,7 +271,7 @@ function InitMetaDataGrid(intFavID) {
                         }).then((result) => {
                             if (result.value) {
                                 args.item.deleteConfirmed = true;
-                                $.post('/DeleteMetaData', {
+                                $.post(ROUTES_PREFIX + '/DeleteMetaData', {
                                     intFavID: intFavID,
                                     intMetaDataID: args.item.id
                                 }).done(function (response) {
@@ -286,7 +288,7 @@ function InitMetaDataGrid(intFavID) {
                     }
                 },
                 onItemUpdated: function (args) {
-                    $.post('/UpdateMetaData', {
+                    $.post(ROUTES_PREFIX + '/UpdateMetaData', {
                         intFavID: intFavID,
                         intMetaDataID: args.item.id,
                         key: args.item.key,
@@ -306,7 +308,7 @@ function InitMetaDataGrid(intFavID) {
 }
 
 function InitLogsGrid() {
-    $.get('/GetLogs').done(function (response) {
+    $.get(ROUTES_PREFIX + '/GetLogs').done(function (response) {
         if (response.code == 0) {
             ShowError(response.msg)
         }
@@ -351,7 +353,7 @@ function ShowError(msg) {
 
 function submitForm() {
     var strTitle = $("#strCategoryTitle").val();
-    $.post('AddCategory', {
+    $.post(ROUTES_PREFIX + '/AddCategory', {
         strCategoryTitle: strTitle
     }).done(function (response) {
         if (response.code == 0) {
