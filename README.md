@@ -64,7 +64,7 @@ The favorite-things-app is an application that allows the user to track their fa
     ```
 
 ##  Deployment to AWS Lambda using Zappa
--   Change ROUTES_PREFIX to "/dev" for Lambda routes
+-   Change ROUTES_PREFIX in app\static\js\script.js from "" to "/dev" for Lambda routes
 
 -   Change Connection String for mysql database in config.py to Production
 
