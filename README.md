@@ -3,7 +3,7 @@
 ## Descriptiom
 The favorite-things-app is an application that allows the user to track their favorite things
 
-## Entity Eelationship Diagram
+## Entity Relationship Diagram
 
 ![alt](https://raw.githubusercontent.com/a-maksousa/favorite-things/master/ERM.JPG)
 
