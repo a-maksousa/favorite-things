@@ -4,8 +4,10 @@
             <p style="margin:0px">{{category.title}}</p>
         </div>
         <div class="col-md-10">
-            <a data-toggle="collapse" data-target="#collapse_favorites_{{category.id}}" title = "Show / Hide Items" class="card-controls"><i class="fas fa-compress"></i></a>
-            <a title = "Delete Category" class="btnDeleteCat card-controls"><i class="far fa-trash-alt"></i></a>
+            <a data-toggle="collapse" data-target="#collapse_favorites_{{category.id}}" title="Show / Hide Items"
+            class="card-controls"><i class="fas fa-compress"></i></a>
+            <a title="Delete Category" class="btnDeleteCat card-controls"><i class="far fa-trash-alt"></i></a>
+            <i id = "icnLoading_{{category.id}}" class="card-controls fas fa-spinner fa-spin" style="float: right ;display: none;" ></i>
         </div>
     </div>
 </div>

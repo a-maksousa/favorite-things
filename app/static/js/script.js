@@ -94,9 +94,11 @@ $(document).ready(function () {
 });
 
 function InitFavGrid(intCatID) {
+    $("#icnLoading_"+intCatID).show()
     $.get(ROUTES_PREFIX + '/GetFavByCatID', {
         intCategoryID: intCatID
     }).done(function (response) {
+        $("#icnLoading_"+intCatID).hide()
         if (response.code == 0) {
             ShowError(response.msg)
         }
