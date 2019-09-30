@@ -1,4 +1,5 @@
 var ROUTES_PREFIX = ""
+// var ROUTES_PREFIX = "/dev"
 
 $(document).ready(function () {
 
