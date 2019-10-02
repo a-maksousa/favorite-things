@@ -75,7 +75,12 @@ def DeleteCategory():
         if not objCategory is None:
             lstFavorites = Favorite.query.filter_by(category_id=objCategory.id).all()
             if len(lstFavorites) > 0:
+                for objFavorite in lstFavorites:
+                    lstMetadata = Meta_Data.query.filter_by(favorite_id=objFavorite.id).all()
+                    if len(lstMetadata) > 0:
+                        Meta_Data.query.filter_by(favorite_id=objFavorite.id).delete()
                 Favorite.query.filter_by(category_id=objCategory.id).delete()
+                
             db.session.delete(objCategory)
             db.session.commit()
             response = success()

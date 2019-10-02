@@ -178,7 +178,7 @@ function InitFavGrid(intCatID) {
                                     }
                                     else {
                                         $("#favorites_" + intCatID).jsGrid("deleteItem", args.item);
-                                        ShowMessage("Favorite is Added Successfully")
+                                        ShowMessage("Favorite is Deleted Successfully")
                                     }
                                 })
                             }
