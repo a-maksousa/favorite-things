@@ -66,7 +66,7 @@ body{
 
 .card{
     box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.52);
-    background-color: #f8f8f8;
+    background-color: #2a2222;
     border-color: #e7e7e7;
     transition: 0.4s;
     margin-top: 10px;
@@ -75,7 +75,6 @@ body{
 
 .card_title{
     border-right: 1px solid #e7e7e7;
-    text-transform: uppercase;
     text-align: center;
     color: #018ea7;
     font-size: 25px;
