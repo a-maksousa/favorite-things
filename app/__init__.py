@@ -9,7 +9,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import models, routes
+from app import models, routes, errors
 from app.API.categories import categories_blueprint
 from app.API.favorites import favorites_blueprint
 from app.API.metadata import metadata_blueprint
