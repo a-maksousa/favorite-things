@@ -1,18 +1,18 @@
-from app import app, db
-from flask import render_template, jsonify
-from Util import failure
+from flask import render_template, Blueprint, url_for
 from app.API.categories import GetAllCategories
 
-@app.route('/')
-@app.route('/index')
+main_blueprint = Blueprint('main', __name__,template_folder='templates')
+
+@main_blueprint.route('/')
+@main_blueprint.route('/index')
 def index():
     return render_template("index.html",title="Home")
 
-@app.route('/logs')
+@main_blueprint.route('/logs')
 def logs():
     return render_template("logs.html",title="Audit Logs")
 
-@app.route('/favorites')
+@main_blueprint.route('/favorites')
 def favorites():
     objResponse = GetAllCategories()
     return render_template("favorites.html",title="Favorite List", lstCategories = objResponse.json["data"])
