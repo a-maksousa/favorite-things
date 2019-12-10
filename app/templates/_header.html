@@ -1,0 +1,29 @@
+<!-- logo navbar -->
+<nav class=" navbar navbar-default">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="navbar-header col-md-2">
+                <a class="navbar-brand" href="{{url_for('main.index')}}">
+                    <img style="width: 110px" src="{{url_for('static',filename='images/Logo.png')}}">
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- screen path navbar -->
+{% if title != "Home" %}
+<div class="page_header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a class="page_header_label" href="{{url_for('main.index')}}">
+                    <h6 class="page_header_item">Home</h6>
+                </a>
+                <i style="vertical-align: sub" class="page_header_item fas fa-caret-right"></i>
+                <h6 class="page_header_item">{{ title }}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

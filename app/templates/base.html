@@ -3,6 +3,7 @@
 <head>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/Favorites.png') }}">
 
+    <!-- styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.toast.css') }}">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jsgrid.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/jsgrid-theme.min.css') }}">
 
+    <!-- scripts -->
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/datatables.min.js') }}"></script>
@@ -30,50 +32,19 @@
 </head>
 
 <body>
-    <nav class=" navbar navbar-default">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="navbar-header col-md-2">
-                    <a class="navbar-brand" href="{{url_for('main.index')}}">
-                        <img style="width: 110px" src="{{url_for('static',filename='images/Logo.png')}}">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    {% if title != "Home" %}
-    <div class="page_header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <a class="page_header_label" href="{{url_for('main.index')}}">
-                        <h6 class="page_header_item">Home</h6>
-                    </a>
-                    <i style="vertical-align: sub" class="page_header_item fas fa-caret-right"></i>
-                    <h6 class="page_header_item">{{ title }}</h6>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
+    <!-- header -->
+    {% include "_header.html" %}
 
+    <!-- child template -->
     {% block content %}{% endblock %}
 
-    <div class="container-fluid footer">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="https://github.com/a-maksousa" target="_blank">
-                    <img style="float: right;width: 60px" src="{{url_for('static',filename='images/Github.png')}}">
-                </a>
-                <a href="https://www.linkedin.com/in/amaksousa/" target="_blank">
-                    <img style="float: right;width: 60px" src="{{url_for('static',filename='images/linkedin.png')}}">
-                </a>
-            </div>
-        </div>
-    </div>
+    <!-- footer -->
+    {% include "_footer.html" %}
+
 </body>
 
+<!-- loading screen -->
 <div class="preloader">
     <div class="status-mes">
         <div class="bigSqr">
@@ -85,6 +56,5 @@
         <div class="text_loading text-center bold">Loading</div>
     </div>
 </div>
-
 
 </html>
