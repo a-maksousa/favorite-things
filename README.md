@@ -1,6 +1,6 @@
 ## Favorite Things App
 
-## Descriptiom
+## Description
 The favorite-things-app is an application that allows the user to track their favorite things
 
 ## Entity Relationship Diagram
