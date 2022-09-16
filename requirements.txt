@@ -24,7 +24,7 @@ jmespath==0.9.3
 kappa==0.6.0
 lambda-packages==0.20.0
 lazy-object-proxy==1.4.2
-Mako==1.1.0
+Mako==1.2.2
 MarkupSafe==1.1.1
 mccabe==0.6.1
 mysql-connector-python==8.0.17
