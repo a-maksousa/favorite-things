@@ -4,7 +4,7 @@ astroid==2.2.5
 awscli==1.16.236
 boto3==1.9.226
 botocore==1.12.226
-certifi==2019.6.16
+certifi==2022.12.7
 cfn-flip==1.2.1
 chardet==3.0.4
 Click==7.0
